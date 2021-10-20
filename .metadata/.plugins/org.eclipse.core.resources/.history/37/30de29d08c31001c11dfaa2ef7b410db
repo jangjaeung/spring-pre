@@ -13,7 +13,7 @@ public class HelloRun {
 //		빈 호출완료
 		MessageBean bean = (MessageBean)ctx.getBean("messageBean");
 //		MessageBeanHello 객체 메소드 호출
-		bean.sayHello("Spring test");
+		bean.sayHello("Spring");
 	}
  
 }
