@@ -1,0 +1,5 @@
+package org.kh.hellowspring;
+
+public interface MessageBean {
+	public void sayHellow(String name);
+}
