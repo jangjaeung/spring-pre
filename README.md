@@ -1,3 +1,5 @@
++ java 수업정리 https://fierce-form-86b.notion.site/JAVA-c935d1cc431448dfa111f4bfa8619680<br>
++ Oracle SQL 수업정리 https://fierce-form-86b.notion.site/Oracle-SQL-e2517766ffa84561b978c67c675d04c3<br>
 # spring-pre
 ### 21/10/20 Spring 프레임워크 
 + 스프링의 특징
