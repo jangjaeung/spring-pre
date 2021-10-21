@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	
+	<!-- 객체가 아닌 값을 넣을경우 사용법 -->
+<!-- 	<bean id="customer" class="kr.or.iei.customer.domain.Customer"> -->
+<!-- 		<property name="id" value="1"></property> -->
+<!-- 		<property name="name" value="일용자"></property> -->
+<!-- 		<property name="address"> -->
+<!-- 			<value>서울시</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="email"> -->
+<!-- 			<value>user01@iei.or.kr</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	<!-- 값을넣는 두번째방법  생성자를 이용해 순서대로 값을 넣는법 -->
+	<bean id="customer" class="kr.or.iei.customer.domain.Customer">
+		<constructor-arg value="2"></constructor-arg>
+		<constructor-arg value="이용자"></constructor-arg>
+		<constructor-arg value="경기"></constructor-arg>
+		<constructor-arg value="user01@iei.or.kr"></constructor-arg>
+	</bean>
+	
+	<bean id="customerStore" class="kr.or.iei.customer.store.logic.CustomerStoreLogic"></bean>
+	
+	<!-- 빈에 객체를 저장할경우 사용법 -->
+	<bean id="customerService" class="kr.or.iei.customer.service.logic.CustomerServiceImpl">
+		<property name="store" ref="customerStore"></property>
+		<!-- name은 서비스임플에 있는 세터메소드 이름값 store / ref는 사용할 빈 객체 이름 -->
+	</bean>
+<!-- 	<bean id="customerService" class="kr.or.iei.customer.service.logic.CustomerServiceImpl"> -->
+<!-- 		<constructor-arg ref="customerSotre></constructor-arg> -->
+<!-- 	</bean> -->
+</beans>
