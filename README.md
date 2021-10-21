@@ -15,3 +15,22 @@
   + POM(Project Object Model)은 하나의 프로젝트에서 사용하는 자바 버전, 라이브러리, 플러그인을 구성을 통합하여 관리할 수 있게 각 설정 정보를
 XML문서화 한것
   + pom.xml에 <dependencies>메이븐 레포지토리에서 복사한것</dependencies> 저장하면 자동 다운됨
+
+
+### 21/10/21 Spring 프레임워크
+##### xml파일을 이용하여 Spring simple Java 연습
+##### Annotation을 이용하여 Spring MVC연습 
+
++ Spring 구조
++ ![스프링 구조](https://user-images.githubusercontent.com/90733948/138259982-65c216d6-ae23-44ed-9f42-7d748c0459d6.jpg)
+
+
++ Spring MVC 요청 처리 과정
+   + 클라이언트에서 /member/detail.do?memberId=user01 입력값이 들어왓다 치자(request) <br>
+모든 request는 Disparcher Servlet이 받음
+Dispatcher Servlet에서 Handler Mapping을 통해 어느 컨트롤러를 실행시킬지 알고 컨트롤러를 통해 비즈니스 로직 실행하고 디스패쳐서블릿으로 감
+view Resolver에서 어떤 뷰로 보낼지 선택하고 보여줌
+Dispatcher Servlet / View Resolver은 servlet-context.xml에
+  + Handler Mapping  과 Controller를 어노테이션으로 사용
+    + Handler Mapping > @RequestMapping(value="/login.do", method=RequestMethod.POST)
+    ![화면 캡처 2021-10-21 193015](https://user-images.githubusercontent.com/90733948/138260456-7d647c72-c061-4417-ae98-9ad72510faa7.jpg)
