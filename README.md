@@ -34,3 +34,12 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
   + Handler Mapping  과 Controller를 어노테이션으로 사용
     + Handler Mapping > @RequestMapping(value="/login.do", method=RequestMethod.POST)
     ![화면 캡처 2021-10-21 193015](https://user-images.githubusercontent.com/90733948/138260456-7d647c72-c061-4417-ae98-9ad72510faa7.jpg)
+    
+### 21/10/22 Spring 프레임워크
+##### 어노테이션을 이용하여 Spring MVC 프로젝트 연습
+
++ xml 파일 설정을 통해 Spring MVC 사용
++ 스프링과 마이바티스 사용
++ pom.xml HomeController.Java web.xml servlet-context.xml, root-context.xml, mybatis-config.xml, member-mapper.xml 설정 
++ 어노테이션을 이용해 인터페이스 의존성 주입
++ **mxl파일 설정 잘보기!!!!**
