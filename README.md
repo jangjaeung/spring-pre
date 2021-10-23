@@ -43,3 +43,7 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 + pom.xml HomeController.Java web.xml servlet-context.xml, root-context.xml, mybatis-config.xml, member-mapper.xml 설정 
 + 어노테이션을 이용해 인터페이스 의존성 주입
 + **mxl파일 설정 잘보기!!!!**
+
+### 21/10/23 Spring 프레임워크
+##### xml 파일 설정 복습
++ 
