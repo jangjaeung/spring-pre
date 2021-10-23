@@ -24,12 +24,12 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+		<!-- 끝이 .kh주소를 가진 파일은 이 .xml 파일을 무조건 거침 -->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.kh</url-pattern>
 	</servlet-mapping>
-
+<!-- 필터를 통한 인코딩 설정해 두면 일일히 컨트롤러마다 설정할 필요없음 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

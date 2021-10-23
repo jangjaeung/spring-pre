@@ -2,11 +2,13 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <!-- alias 설정 잊지말기 -->
   <configuration>
      <typeAliases>
         <typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/>
      </typeAliases>
      
+     <!-- 사용하려는 마이바티스 경로 설정 -->
      <mappers>
         <mapper resource="mappers/member-mapper.xml"/>
      </mappers>
