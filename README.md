@@ -46,4 +46,6 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 
 ### 21/10/23 Spring 프레임워크
 ##### xml 파일 설정 복습
-+ 
+### 21/10/25 Spring 프레임워크 
++ 회원가입 기능 Controller 어노테이션 실습
++ 네이버지도api 네이버 주소검색api 
