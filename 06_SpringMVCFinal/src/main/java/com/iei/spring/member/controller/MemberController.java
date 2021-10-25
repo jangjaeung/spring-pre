@@ -1,6 +1,7 @@
 package com.iei.spring.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,36 @@ public class MemberController {
 			request.setAttribute("msg", "로그아웃 실패");
 			return "common/errorPage";
 		}
+	}
+	
+	//회원가입페이지이동
+	@RequestMapping(value="/enrollView.kh", method=RequestMethod.GET)
+	public String enrollView(HttpServletRequest request) {
+		return "member/memberJoin";
+	}
+	
+	//회원가입
+	@RequestMapping(value="memberRegister.kh", method=RequestMethod.POST)
+	public String memberRegister(HttpServletRequest request) {
+		String memberId = request.getParameter("user-id");
+		String memberPwd = request.getParameter("user-pwd");
+		String memberName = request.getParameter("user-name");
+		String memberEmail = request.getParameter("user-email");
+		String memberPhone = request.getParameter("user-phone");
+		String memberAddr = request.getParameter("user-addr");
+		Member member = new Member(memberId, memberPwd, memberName, memberEmail, memberPhone, memberAddr);
 		
+		try {
+			int result = service.registerMember(member);
+			if(result > 0) {
+				return "home";
+			}else {
+				request.setAttribute("msg", "회원가입 실패");
+				return "common/errorPage";
+			}
+		}catch(Exception e) {
+			request.setAttribute("msg", e.toString());
+			return "common/errorPage";
+		}
 	}
 }

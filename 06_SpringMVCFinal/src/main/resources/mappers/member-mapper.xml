@@ -19,4 +19,8 @@
 	<select id="selectLoginMember" resultMap="memberResultMap">
 		SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId} AND MEMBER_PWD = #{memberPwd}
 	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER VALUES(#{memberId}, #{memberPwd}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberAddr},DEFAULT, DEFAULT, DEFAULT)
+	</insert>
 </mapper>

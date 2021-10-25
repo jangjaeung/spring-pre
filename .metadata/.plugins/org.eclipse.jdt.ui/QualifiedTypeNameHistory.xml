@@ -21,7 +21,6 @@
 <fullyQualifiedTypeName name="org.kh.spring.member.service.UserService"/>
 <fullyQualifiedTypeName name="org.kh.spring.member.domain.User"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="com.iei.spring.member.domain.Member"/>
 <fullyQualifiedTypeName name="com.iei.spring.member.service.MemberService"/>
 <fullyQualifiedTypeName name="com.iei.spring.member.store.MemberStore"/>
 <fullyQualifiedTypeName name="org.mybatis.spring.SqlSessionTemplate"/>
@@ -29,8 +28,10 @@
 <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="com.iei.spring.member.domain.Member"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
 </qualifiedTypeNameHistroy>

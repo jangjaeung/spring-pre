@@ -27,8 +27,8 @@ public class MemberStoreLogic implements MemberStore{
 
 	@Override
 	public int insertMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.insert("memberMapper.insertMember",member);
+		return result;
 	}
 
 	@Override
