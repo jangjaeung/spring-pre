@@ -33,14 +33,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int modifyMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateMember(member);
+		return result;
 	}
 
 	@Override
 	public int removeMember(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteMember(userId);
+		return result;
 	}
 
 }

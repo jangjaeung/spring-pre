@@ -33,14 +33,14 @@ public class MemberStoreLogic implements MemberStore{
 
 	@Override
 	public int updateMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("memberMapper.updateMember",member);
+		return result;
 	}
 
 	@Override
 	public int deleteMember(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.delete("memberMapper.deleteMember",userId);
+		return result;
 	}
 
 }

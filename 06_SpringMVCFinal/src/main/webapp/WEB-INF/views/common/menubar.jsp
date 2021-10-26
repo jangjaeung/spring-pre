@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/member-style.css" rel="stylesheet">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
    <h1 align="center">Welcome to our WebSite!</h1>
@@ -40,7 +41,7 @@
       			<td colspan="2">${loginUser.memberName }님 환영합니다.</td>
       		</tr>
       		<tr>
-      			<td><button>정보수정</button></td>
+      			<td><button onclick="showMyInfo();">정보수정</button></td>
       			<td><button onclick="location.href='/logout.kh';">로그아웃</button></td>
       		</tr>
       	</table>
@@ -52,5 +53,10 @@
       <div class="menu">자유게시판</div>
       <div class="menu">ETC</div>
    </div>
+   <script>
+    	function showMyInfo(){
+    		location.href="/myInfo.kh";
+    	}
+   </script>
 </body>
 </html>
