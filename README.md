@@ -51,7 +51,7 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 + 네이버지도api 네이버 주소검색api 
 
 ### 21/10/26 Spring 프레임워크
-##### 어노테이션을 이용한 스프링 실습 회원정보 수정 / 탈퇴 / 주소api적용
+##### 어노테이션을 이용한 스프링 실습 회원정보 수정 / 탈퇴 / 주소api적용 / postcode 주소 api 사용(memberjoin.jsp)
 **controller 회원가입 부분 주석과 코드 잘보기**
 1. HttpServletRequest를 통해서 받기
 2. @RequestParam 어노테이션 사용해서 받기<br>
