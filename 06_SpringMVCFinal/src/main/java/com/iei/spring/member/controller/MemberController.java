@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iei.spring.member.domain.Member;
 import com.iei.spring.member.service.MemberService;
@@ -69,14 +70,14 @@ public class MemberController {
 	}
 	
 	//회원가입
-	//1. HttpServletRequest를 통해서 받기
-	//2. @RequestParam 어노테이션 사용해서 받기
-	//2-1. @RequestParam을 이용하여 변수 선언해서 불러올 필요 없이 어노테이션으로 가능 배열은 request.getParameterValues로 해야함
-	//3. @ModelAttribute 어노테이션 사용해서 받기 *주의점 Member객체에 있는 변수 이름이 jsp파일 name값과 동일해야함 ex)user-id -> memberId
-	//3-1 주의사항 VO(Domain)클래스 기본 생성자 존재
-	//3-2 setter 메소드 존재
-	//3-3 요청페이지(jsp)에서 name 속석명이 domain(vo) 필드명(멤버변수명)과 같아야함
-	//요청페이지에서 memberAddress가 없고 post address1,2가 있으니 RequestParam을 통해 불러와서 member객체에memberAddr변수에 setter을 이용하여 합쳐서 저장한다
+//	1. HttpServletRequest를 통해서 받기
+//	2. @RequestParam 어노테이션 사용해서 받기
+//	2-1. @RequestParam을 이용하여 변수 선언해서 불러올 필요 없이 어노테이션으로 가능 배열은 request.getParameterValues로 해야함
+//	3. @ModelAttribute 어노테이션 사용해서 받기 *주의점 Member객체에 있는 변수 이름이 jsp파일 name값과 동일해야함 ex)user-id -> memberId
+//	3-1 주의사항 VO(Domain)클래스 기본 생성자 존재
+//	3-2 setter 메소드 존재
+//	3-3 요청페이지(jsp)에서 name 속석명이 domain(vo) 필드명(멤버변수명)과 같아야함
+//	요청페이지에서 memberAddress가 없고 post address1,2가 있으니 RequestParam을 통해 불러와서 member객체에memberAddr변수에 setter을 이용하여 합쳐서 저장한다
 	@RequestMapping(value="memberRegister.kh", method=RequestMethod.POST)
 	public String memberRegister(HttpServletRequest request,
 			@ModelAttribute Member member,
@@ -159,4 +160,12 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+	
+		@ResponseBody
+	   @RequestMapping(value="checkDupId.kh", method=RequestMethod.GET)
+	   public String idDuplicateCheck(@RequestParam("memberId") String memberId) {
+	      int result = service.checkIdDup(memberId);
+//	      return result + "";
+	      return String.valueOf(result); // /WEB-INF/views/1.jsp > 1, 0
+	   }
 }

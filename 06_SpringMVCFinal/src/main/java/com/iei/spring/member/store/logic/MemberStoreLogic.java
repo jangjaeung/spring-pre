@@ -21,8 +21,8 @@ public class MemberStoreLogic implements MemberStore{
 
 	@Override
 	public int checkIdDup(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.selectOne("memberMapper.checkIdDup",userId);
+		return result;
 	}
 
 	@Override

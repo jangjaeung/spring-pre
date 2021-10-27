@@ -49,13 +49,16 @@
    </div>
    <div class="nav-area">
       <div class="menu">Home</div>
-      <div class="menu">공지사항</div>
+      <div class="menu" onclick="showNoticeList();">공지사항</div>
       <div class="menu">자유게시판</div>
       <div class="menu">ETC</div>
    </div>
    <script>
     	function showMyInfo(){
     		location.href="/myInfo.kh";
+    	}
+    	function showNoticeList(){
+    		location.href="noticeList.kh";
     	}
    </script>
 </body>

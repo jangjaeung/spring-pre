@@ -21,8 +21,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int checkIdDup(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.checkIdDup(userId);
+		return result;
 	}
 
 	@Override
