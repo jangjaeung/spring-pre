@@ -61,3 +61,14 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
   + setter 메소드 존재<br>
   + 요청페이지(jsp)에서 name 속석명이 domain(vo) 필드명(멤버변수명)과 같아야함<br>
 4. 요청페이지에서 memberAddress가 없고 post address1,2가 있으니 RequestParam을 통해 불러와서 member객체에memberAddr변수에 setter을 이용하여 합쳐서 저장한다
+
+### 21/10/27 Spring 프레임워크
+##### ajax를 이용한 회원가입 아이디 중복체크 / 공지사항 추가 / 파일업로드 관련 라이브러리commons io 사용
+**pom.xml root-context.xml 복습**
++ root-context.xml 파일 업료드 관련 bean등록
+  +  maxUploadSize : 한 요청당 업로드가 허용되는 최대용량을 바이트단위로 설정
+    + -1은 제한이 없다는 뜻이고 프로퍼티를 지정하지 않을 때 기본값
+  + maxInMemorySize : 디스크에 저장하지 않고 메모리에 유지하도록 허용하는 바이트 단위 최대용량 기본값 10240바이트
++ NoticeController registerNotice 주석 확인
+  + saveFile 주석확인 멀티파트파일을 통해 저장경로를 설정하고 저장 폴더선택, 없으면 생성하고 파일 저장 하는법
++ **mapper.xml 프로퍼티와 컬럼 오타조심 config.xml에 typeAlies와 맵핑 했는지 항상 주의할것**
