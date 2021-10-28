@@ -1,9 +1,0 @@
-package org.kh.hellowspring;
-
-public class MessageBeanHello implements MessageBean{
-
-	@Override
-	public void sayHellow(String name) {
-		System.out.println("Hellow"+name);
-	}
-}

@@ -8,7 +8,7 @@ import com.iei.spring.notice.domain.Search;
 public interface NoticeStore {
 	public List<Notice> selectAll();
 	public List<Notice> selectSearchAll(Search search);
-	public Notice selecttOne(int nId);
+	public Notice selectOne(int nId);
 	public int insertNotice(Notice notice);
 	public int updateNotice(Notice notice);
 	public int deleteNotice(int nId);

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iei.spring.notice.domain.Notice;
+import com.iei.spring.notice.domain.Search;
 import com.iei.spring.notice.service.NoticeService;
 
 @Controller
@@ -26,15 +27,45 @@ public class NoticeController {
 	
 	@RequestMapping(value="noticeList.kh",method=RequestMethod.GET)
 	public String showNoticeList(Model model) {
-		List<Notice> nList = service.printAll();
-		if(!nList.isEmpty()) {
-			model.addAttribute("nList",nList);
+		try {
+			List<Notice> nList = service.printAll();
+			if(!nList.isEmpty()) {
+				model.addAttribute("nList",nList);
+			}else {
+				model.addAttribute("nList",null);
+			}
 			return "notice/noticeListView";
-		}else {
-			model.addAttribute("msg","공지사항조회실패");
+		}catch(Exception e) {
+			model.addAttribute("msg","공지사항 조회 실패");
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping(value="noticeDetail.kh", method=RequestMethod.GET)
+	public String noticeDetail(@RequestParam("noticeNo") int nId, Model model) {
+		Notice notice = service.printOne(nId);
+		if(notice != null) {
+			model.addAttribute("notice",notice);
+			return "notice/noticeDetailView";
+		}else {
+			model.addAttribute("msg","공지사항 상세조회실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="noticeSearch.kh",method=RequestMethod.GET)
+	public String noticeSearchList(@ModelAttribute Search search,Model model) {
+		List<Notice> searchList = service.printSearchAll(search);
+		if(!searchList.isEmpty()) {
+			model.addAttribute("nList",searchList);
+			model.addAttribute("search",search);
+			return "notice/noticeListView";
+		}else {
+			model.addAttribute("msg","검색실패");
+			return "common/errorPage";
+		}
+	}
+	
 	
 	@RequestMapping(value="noticeWriteView.kh", method=RequestMethod.GET)
 	public String noticeWriteView() {
@@ -54,7 +85,7 @@ public class NoticeController {
 			//uploadFile이 비어있지 않으면
 			String filePath = saveFile(uploadFile, request);
 			if(filePath != null) {
-				notice.setNoticeFilePath(filePath);
+				notice.setNoticeFilePath(uploadFile.getOriginalFilename());
 			}
 		}
 		int result = service.registerNotice(notice);
@@ -87,5 +118,60 @@ public class NoticeController {
 		
 		//파일 경로 리턴
 		return filePath;
+	}
+	
+	@RequestMapping(value="noticeModifyView.kh",method=RequestMethod.GET)
+	public String noticeModify(@RequestParam("noticeNo") int nId,Model model) {
+		Notice notice = service.printOne(nId);
+		model.addAttribute("notice",notice);
+		return "notice/noticeUpdateView";
+	}
+	
+	@RequestMapping(value="noticeUpdate.kh",method=RequestMethod.POST)
+	public String noticeUpdate(@ModelAttribute Notice notice,Model model,HttpServletRequest request,@RequestParam("reloadFile") MultipartFile reloadFile) {
+		//수정은 업로드된 파일이 있을 경우
+		if(reloadFile != null && !reloadFile.isEmpty()) {
+			if(notice.getNoticeFilePath() != null) {
+				//삭제하고
+				deleteFile(notice.getNoticeFilePath(), request);
+			}
+			//다시업로드
+			String savePath = saveFile(reloadFile,request);
+			if(savePath != null) {
+				notice.setNoticeFilePath(reloadFile.getOriginalFilename());
+			}
+		}
+		
+		//DB데이터 수정
+		int result = service.modifyNotice(notice);
+		if(result > 0) {
+			return "redirect:noticeDetail.kh?noticeNo="+notice.getNoticeNo();
+		}else {
+			model.addAttribute("msg","수정실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="noticeDelete.kh",method=RequestMethod.GET)
+	public String noticeDelete(@RequestParam("noticeNo") int nId,Model model,HttpServletRequest request) {
+		Notice notice = service.printOne(nId);
+		int result = service.removeNotice(nId);
+		if(result>0) {
+			if(notice.getNoticeFilePath() != null) {
+				deleteFile(notice.getNoticeFilePath(),request);
+			}
+			return "redirect:noticeList.kh";
+		}else {
+			model.addAttribute("msg","삭제실패");
+			return "common/errorPage";
+		}
+	}
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String deletePath = root + "\\nuploadFiles";
+		File deleteFile = new File(deletePath + "\\" + fileName);
+		if(deleteFile.exists()) {
+			deleteFile.delete();//파일삭제
+		}
 	}
 }

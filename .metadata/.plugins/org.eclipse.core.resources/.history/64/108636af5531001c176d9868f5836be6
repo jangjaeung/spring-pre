@@ -1,5 +1,0 @@
-package org.kh.hellowspring;
-
-public interface MessageBean {
-
-}

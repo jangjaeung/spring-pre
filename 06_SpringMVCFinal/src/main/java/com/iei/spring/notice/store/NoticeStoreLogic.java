@@ -23,14 +23,14 @@ public class NoticeStoreLogic implements NoticeStore{
 
 	@Override
 	public List<Notice> selectSearchAll(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> searchList = sqlSession.selectList("noticeMapper.selectSearchList",search);
+		return searchList;
 	}
 
 	@Override
-	public Notice selecttOne(int nId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Notice selectOne(int nId) {
+		Notice notice = sqlSession.selectOne("noticeMapper.selectOneNotice",nId);
+		return notice;
 	}
 
 	@Override
@@ -41,14 +41,14 @@ public class NoticeStoreLogic implements NoticeStore{
 
 	@Override
 	public int updateNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("noticeMapper.updateNotice",notice);
+		return result;
 	}
 
 	@Override
 	public int deleteNotice(int nId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.delete("noticeMapper.deleteNotice",nId);
+		return result;
 	}
 
 }

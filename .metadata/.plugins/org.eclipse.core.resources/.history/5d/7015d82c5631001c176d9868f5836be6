@@ -1,9 +1,0 @@
-package org.kh.hellowspring;
-
-public class HellowRun {
-
-	public static void main(String[] args) {
-		new MessageBeanHello().sayHellow("spring");
-	}
-
-}

@@ -23,14 +23,14 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<Notice> printSearchAll(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> searchList = store.selectSearchAll(search);
+		return searchList;
 	}
 
 	@Override
 	public Notice printOne(int nId) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice notice = store.selectOne(nId);
+		return notice;
 	}
 
 	@Override
@@ -41,14 +41,14 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int modifyNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateNotice(notice);
+		return result;
 	}
 
 	@Override
 	public int removeNotice(int nId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteNotice(nId);
+		return result;
 	}
 
 }
