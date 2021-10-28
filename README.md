@@ -72,3 +72,7 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 + NoticeController registerNotice 주석 확인
   + saveFile 주석확인 멀티파트파일을 통해 저장경로를 설정하고 저장 폴더선택, 없으면 생성하고 파일 저장 하는법
 + **mapper.xml 프로퍼티와 컬럼 오타조심 config.xml에 typeAlies와 맵핑 했는지 항상 주의할것**
+### 21/10/28 Spring 프레임워크
+##### 파일올리기와 게시판CRUD
+**Notice 완료**
++ Notice 게시판 CRUD 마이바티스 동적쿼리 복습
