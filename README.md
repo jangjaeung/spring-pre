@@ -76,3 +76,19 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 ##### 파일올리기와 게시판CRUD
 **Notice 완료**
 + Notice 게시판 CRUD 마이바티스 동적쿼리 복습
+
+### 21/10/29 Spring 프레임워크
+##### 자유게시판 CRUD 페이징처리
++ /**엔터치면 javadoc api문서 설명 가능
++ 페이징시
++ //ROWNUM~BETWEEN 1 AND 10
++ /*
++ * RowBounds는 쿼리문을 변경하지 않고도 페이징을 처리할수 있게 해주는 클래스
++ * RowBounds의 동작은 offset값과 limit값을 이용해서 동작함
++ * offset값은 변하는 값이고 limit값은 고정값
++ * limit값이 한 페이지당 보여주고 싶은 게시물의 갯수이고
++ * offset은 건너뛰어야 할 값임
++ * ex)limit 10, offset 0, 1~10,
++ * 	   10, 11~20
++ * offset값은 currentPage에 의해서 변경됨
++ */
