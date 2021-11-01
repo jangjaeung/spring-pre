@@ -25,7 +25,19 @@
   		SELECT * FROM BOARD WHERE B_STATUS = 'Y' ORDER BY BOARD_NO DESC
   	</select>
   	
+  	<select id="selectOneBoard" resultMap="boardResultMap">
+  		SELECT * FROM BOARD WHERE BOARD_NO = #{boardNo}
+  	</select>
+  	
   	<insert id="insertBoard" parameterType="Board">
   		INSERT INTO BOARD VALUES(SEQ_BOARDNUM.NEXTVAL, #{boardTitle},#{boardContents},#{boardWriter},#{boardFileName},#{boardFileRename},DEFAULT,DEFAULT,DEFAULT,DEFAULT)
   	</insert>
+  	
+  	<delete id="deleteBoard" parameterType="_int">
+  		DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
+  	</delete>
+  	
+  	<update id="updateBoard" parameterType="Board">
+  		UPDATE BOARD SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENTS = #{boardContents}, BOARD_FILENAME = #{boardFileName}, BOARD_FILERENAME = #{boardFileRename}, B_UPDATE_DATE = DEFAULT WHERE BOARD_NO = #{boardNo}
+  	</update>
   </mapper>

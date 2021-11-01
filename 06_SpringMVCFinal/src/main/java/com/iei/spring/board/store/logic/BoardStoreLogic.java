@@ -50,8 +50,8 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public Board printOne(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Board board = session.selectOne("boardMapper.selectOneBoard",boardNo);
+		return board;
 	}
 
 	@Override
@@ -62,14 +62,14 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = session.update("boardMapper.updateBoard",board);
+		return result;
 	}
 
 	@Override
 	public int deleteBoard(int boardNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = session.delete("boardMapper.deleteBoard",boardNo);
+		return result;
 	}
 
 	@Override

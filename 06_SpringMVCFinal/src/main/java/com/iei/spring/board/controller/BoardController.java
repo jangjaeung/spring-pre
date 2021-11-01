@@ -49,6 +49,24 @@ public class BoardController {
 		return mv;
 	}
 	
+	@RequestMapping(value="boardDetail.kh", method=RequestMethod.GET)
+	public ModelAndView boardDetail(
+			ModelAndView mv,
+			@RequestParam("boardNo") int boardNo) {
+		//조회수 증가
+		
+		//게시글 상세 조회
+		Board board = service.printOne(boardNo);
+		if(board != null) {
+			mv.addObject("board",board);
+			mv.setViewName("board/boardDetailView");
+		}else {
+			mv.addObject("msg","게시글조회실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
 	@RequestMapping(value="boardWriteView.kh",method=RequestMethod.GET)
 	public String boardWriterView() {
 		return "board/boardWriteForm";
@@ -110,5 +128,75 @@ public class BoardController {
 		
 		//파일 경로 리턴
 		return renameFileName;
+	}
+	
+	@RequestMapping(value="boardModifyView.kh")
+	public ModelAndView boardModifyView(ModelAndView mv,
+			@RequestParam("boardNo") int boardNo) {
+		Board board = service.printOne(boardNo);
+		if(board != null) {
+			mv.addObject("board",board);
+			mv.setViewName("board/boardUpdateView");
+		}else {
+			mv.addObject("msg","상세조회실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="boardUpdate.kh",method=RequestMethod.POST)
+	public ModelAndView boardUpdate(ModelAndView mv,
+			HttpServletRequest request,
+			@ModelAttribute Board board,
+			@RequestParam(value="reloadFile",required=false) MultipartFile reloadFile) {
+		if(reloadFile != null) {
+			//기존파일 삭제 
+			if(board.getBoardFileName() != "") {
+				deleteFile(board.getBoardFileRename(),request);
+			}
+			//새파일 업로드
+			String fileRename = saveFile(reloadFile,request);
+			if(fileRename != null) {
+				board.setBoardFileName(reloadFile.getOriginalFilename());
+				board.setBoardFileRename(fileRename);
+			}
+		}
+		int result = service.modifyBoard(board);
+		if(result > 0) {
+			mv.setViewName("redirect:boardList.kh");
+		}else {
+			mv.addObject("msg","수정실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="boardDelete.kh", method=RequestMethod.GET)
+	public String boardDelete(
+			Model model,
+			@RequestParam("boardNo") int boardNo,
+			@RequestParam("fileName") String fileRename,
+			HttpServletRequest request) {
+		//DB에 데이터 업데이트
+		int result = service.removeBoard(boardNo);
+		if(result > 0) {
+			//업로드된 파일 삭제
+			if(fileRename != "") {
+				deleteFile(fileRename, request);
+			}
+			return "redirect:boardList.kh";
+		}else {
+			model.addAttribute("msg","삭제실패");
+			return "common/errorPage";
+		}
+	}
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String fullPath = root + "\\buploadFiles";
+		File file = new File(fullPath + "\\" + fileName);
+		if(file.exists()) {
+			file.delete();
+		}
 	}
 }
