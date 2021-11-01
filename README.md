@@ -92,3 +92,9 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 + * 	   10, 11~20
 + * offset값은 currentPage에 의해서 변경됨
 + */
+
+### 21/11/01 Spring 프레임워크
+##### 자유게시판 파일등록 수정 삭제
++ jstl <c:url> <c:param>을 이용하여 컨트롤러에 데이터 전송
++ ModelAndView 객체를 이용 addObject setViewName등..
+
