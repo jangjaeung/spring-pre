@@ -98,3 +98,6 @@ Dispatcher Servlet / View Resolver은 servlet-context.xml에
 + jstl <c:url> <c:param>을 이용하여 컨트롤러에 데이터 전송
 + ModelAndView 객체를 이용 addObject setViewName등..
 
+### 21/11/04 Spring 프레임워크
+##### 자유게시판 댓글 CRUD 
++ Ajax통신을 이용하여 댓글 CRUD 구현
