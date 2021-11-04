@@ -74,26 +74,26 @@ public class BoardStoreLogic implements BoardStore{
 
 	@Override
 	public List<Reply> printAllReply(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reply> rList = session.selectList("boardMapper.selectReplyList", boardNo);
+		return rList;
 	}
 
 	@Override
 	public int insertReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = session.insert("boardMapper.insertReply",reply);
+		return result;
 	}
 
 	@Override
 	public int updateReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = session.update("boardMapper.updateReply",reply);
+		return result;
 	}
 
 	@Override
 	public int deleteReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = session.update("boardMapper.deleteReply",reply);
+		return result;
 	}
 
 }

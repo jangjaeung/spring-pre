@@ -12,6 +12,7 @@
         <typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/>
         <typeAlias type="com.iei.spring.notice.domain.Notice" alias="Notice"/>
         <typeAlias type="com.iei.spring.board.domain.Board" alias="Board"/>
+        <typeAlias type="com.iei.spring.board.domain.Reply" alias="Reply"/>
      </typeAliases>
      
      

@@ -16,6 +16,16 @@
   		<result property="bStatus" column="B_STATUS"/>
   	</resultMap>
   	
+  	<resultMap type="Reply" id="replyResultMap">
+  		<id property="replyNo" column="REPLY_NO"/>
+  		<result property="replyContents" column="REPLY_CONTENTS"/>
+  		<result property="refBoardNo" column="REF_BOARD_NO"/>
+  		<result property="replyWriter" column="REPLY_WRITER"/>
+  		<result property="rCreateDate" column="R_CREATE_DATE"/>
+  		<result property="rUpdateDate" column="R_UPDATE_DATE"/>
+  		<result property="rStatus" column="R_STATUS"/>
+  	</resultMap>
+  	
   	<select id="selectListCount" resultType="_int">
   	<!-- 카운트로 숫자만 가져오는거기 대문에 resultMap이 아닌 resultType으로 int를 지정해준다 -->
   		SELECT COUNT(*) FROM BOARD WHERE B_STATUS = 'Y'
@@ -29,13 +39,31 @@
   		SELECT * FROM BOARD WHERE BOARD_NO = #{boardNo}
   	</select>
   	
+  	
+  	<select id="selectReplyList" resultMap="replyResultMap">
+  		SELECT * FROM BOARD_REPLY WHERE REF_BOARD_NO = #{noardNo} AND R_STATUS = 'Y' ORDER BY REPLY_NO DESC
+  	</select>
+  	
   	<insert id="insertBoard" parameterType="Board">
   		INSERT INTO BOARD VALUES(SEQ_BOARDNUM.NEXTVAL, #{boardTitle},#{boardContents},#{boardWriter},#{boardFileName},#{boardFileRename},DEFAULT,DEFAULT,DEFAULT,DEFAULT)
   	</insert>
   	
+  	<insert id="insertReply" parameterType="Reply">
+  		INSERT INTO BOARD_REPLY VALUES(SEQ_REPLYNUM.NEXTVAL, #{replyContents}, #{refBoardNo}, #{replyWriter}, SYSDATE, SYSDATE, DEFAULT)
+  	</insert>
+  	
+  	<update id="updateReply" parameterType="Reply">
+  		UPDATE BOARD_REPLY SET REPLY_CONTENTS = #{replyContents} WHERE REF_BOARD_NO = #{refBoardNo}  AND REPLY_NO = #{replyNo} AND R_STATUS = 'Y'
+  	</update>
+  	
   	<delete id="deleteBoard" parameterType="_int">
   		DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
   	</delete>
+  	
+  	<update id="deleteReply">
+  		UPDATE BOARD_REPLY SET R_STATUS = 'N' WHERE REF_BOARD_NO = #{refBoardNo} AND REPLY_NO = #{replyNo}
+
+  	</update>
   	
   	<update id="updateBoard" parameterType="Board">
   		UPDATE BOARD SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENTS = #{boardContents}, BOARD_FILENAME = #{boardFileName}, BOARD_FILERENAME = #{boardFileRename}, B_UPDATE_DATE = DEFAULT WHERE BOARD_NO = #{boardNo}

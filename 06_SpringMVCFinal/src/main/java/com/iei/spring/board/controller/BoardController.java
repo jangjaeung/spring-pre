@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,13 +17,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.iei.spring.board.domain.Board;
 import com.iei.spring.board.domain.PageInfo;
+import com.iei.spring.board.domain.Reply;
 import com.iei.spring.board.service.BoardService;
 import com.iei.spring.common.Pagination;
+import com.iei.spring.member.domain.Member;
 
 @Controller
 public class BoardController {
@@ -199,4 +207,58 @@ public class BoardController {
 			file.delete();
 		}
 	}
+	
+	
+	
+	//댓글부분
+	@RequestMapping(value="replyList.kh",method=RequestMethod.GET)
+	public void getReplyList(@RequestParam("boardNo") int boardNo,
+			HttpServletResponse response) throws Exception {
+		List<Reply> rList = service.printAllReply(boardNo);
+		//JSONObject, JSONArray GSON을 사용하면 안써도됨
+		if(!rList.isEmpty()) {
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(rList, response.getWriter());
+		}else{
+			System.out.println("데이터가 없습니다");
+		}
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="addReply.kh",method=RequestMethod.POST)
+	public String addReply(@ModelAttribute Reply reply,
+			HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		reply.setReplyWriter(loginUser.getMemberId());
+		int result = service.registerReply(reply);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="modifyReply.kh",method=RequestMethod.POST)
+	public String modifyReply(@ModelAttribute Reply reply) {
+		int result = service.modifyReply(reply);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteReply.kh", method=RequestMethod.GET)
+	public String deleteReply(@ModelAttribute Reply reply) {
+		int result = service.removeReply(reply);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+
 }

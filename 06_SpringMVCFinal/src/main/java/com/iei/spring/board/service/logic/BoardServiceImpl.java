@@ -60,26 +60,26 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public List<Reply> printAllReply(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reply> rList = store.printAllReply(boardNo);
+		return rList;
 	}
 
 	@Override
 	public int registerReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.insertReply(reply);
+		return result;
 	}
 
 	@Override
 	public int modifyReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateReply(reply);
+		return result;
 	}
 
 	@Override
 	public int removeReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteReply(reply);
+		return result;
 	}
 
 }
