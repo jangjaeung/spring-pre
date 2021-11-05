@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	https://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
 	<!-- DB 빈등록(연결) -->
 	<!-- DB연결 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -29,4 +35,67 @@
 <!-- 		-1은 제한이 없다는 뜻이고 프로퍼티를 지정하지 않을 때 기본값 -->
 <!-- 	2. maxInMemorySize : 디스크에 저장하지 않고 메모리에 유지하도록 허용하는 바이트 단위 최대용량 -->
 <!-- 		기본값 10240바이트 -->
+
+	<!-- AOP XML 방식 -->
+<!-- 	<bean id="log" class="com.iei.spring.common.LogAdvice"></bean> -->
+<!-- 	<bean id="aroundLog" class="com.iei.spring.common.AroundLog"></bean> -->
+<!-- 	 AOP 설정 --> 
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut expression="execution(* com.iei.spring..*Impl.*(..))" id="allPointCut"></aop:pointcut> -->
+<!-- 		<aop:aspect ref="log"> -->
+<!-- 			<aop:before method="printLog" pointcut-ref="allPointCut"></aop:before> -->
+<!-- 			<aop:after method="printLogAfter" pointcut-ref="allPointCut"></aop:after> -->
+<!-- 		</aop:aspect> -->
+<!-- 		<aop:aspect ref="aroundLog"> -->
+<!-- 			<aop:around method="aroundLogs" pointcut-ref="allPointCut"/> -->
+<!-- 		</aop:aspect> -->
+<!-- 	</aop:config> -->
+
+<!--
+ 포인트컷 표현식 정리
+ 1. * org.kh.member.model.service.*.*(..)
+ -> service패키지 아래 있는 모든 클래스 및 모든 메서드 (매개변수 0개 이상)
+ 2. * org.kh.member.model.service..*.*(..)
+ -> service패키지 및 하위 패키지도 포함하여 모든 클래스 및 모든 메서드 (매개변수 0개 이상)
+ 3. * org.kh.member.model.service..*.*()
+ -> service패키지 및 하위 패키지도 포함하여 모든 클래스 및 모든 메서드(매개변수 없는 것)
+ 4. * org.kh.member.model.service..*.*(*)
+ -> service패키지 및 하위 패키지도 포함하여 모든 클래스 및 모든 메서드(매개변수 1개)
+ 5. * org.kh.member.model.service..*.*(Integer,..)
+ -> service패키지 및 하위 패키지도 포함하여 모든 클래스 및 모든 메서드(첫 번째 파라미터는 정수, 매개변수 0개 이상)
+ 6. int org.kh.member.service..*.*(Integer,..)
+ -> 리턴타입이 int이고 service패키지 및 하위패키지에 있는 모든 클래스 및 모든 메서드(첫번째 파라미터는 정수, 매개변수 0개 이상)
+ 7. int org.kh.member.service..*Impl.*(..)
+ -> 리턴타입이 int이고 service패키지 및 하위패키지포함하여 Impl로 끝나는 모든 클래스 및 모든 메서드(매개변수 0개 이상)
+ 
+ -->
+
+	<!-- 
+	AOP를 이용한 트렌잭션 처리
+	1. JDBC : Connection 객체 / conn.commit(), conn.rollback()
+	2. MyBatis : SqlSession 객체 / session.commit(), session.rollback()
+	3. Spring : TransactionManager 객체
+	 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property><!-- 위 빈에 db연결하는 곳 보면 id가 dataSource로 되어있음 그게 ref값 -->
+	</bean>
+	
+<!--트랜잭션 XML 방식 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="print*" read-only="true"/>
+			<tx:method name="register*" rollback-for="Exception"/>
+			<tx:method name="modify*" rollback-for="Exception"/>
+			<tx:method name="remove*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.iei.spring..*Impl.*(..))" id="seviceMethod"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="seviceMethod"/>
+	</aop:config>
+
+
+
 </beans>

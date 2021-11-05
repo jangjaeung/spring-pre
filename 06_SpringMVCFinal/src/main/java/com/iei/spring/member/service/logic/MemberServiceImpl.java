@@ -28,6 +28,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int registerMember(Member member) {
 		int result = store.insertMember(member);
+		store.insertMember(member);
 		return result;
 	}
 
