@@ -2,6 +2,7 @@ package com.iei.spring.member.service.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iei.spring.member.domain.Member;
 import com.iei.spring.member.service.MemberService;
@@ -31,7 +32,9 @@ public class MemberServiceImpl implements MemberService{
 		store.insertMember(member);
 		return result;
 	}
-
+	
+//	@Transactional 
+//	xml방식이 아닌 어노테이션 방식
 	@Override
 	public int modifyMember(Member member) {
 		int result = store.updateMember(member);
